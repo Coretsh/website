@@ -1,0 +1,78 @@
+/* General Styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    padding-top: 20px;
+    transition: 0.3s;
+    transform: translateX(-100%);
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ddd;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #575757;
+}
+
+/* Close Button */
+.closebtn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 30px;
+    margin-left: 50px;
+    color: #fff;
+}
+
+/* Main Content Styling */
+.main-content {
+    margin-left: 0;
+    padding: 16px;
+    transition: margin-left 0.3s;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    left: 15px;
+    top: 12px;
+}
+
+/* Sections */
+section {
+    padding: 20px 0;
+}
+
+/* Show sidebar when active */
+.sidebar.active {
+    transform: translateX(0);
+}
+
+.main-content.active {
+    margin-left: 250px;
+}

@@ -1,54 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Item Comparison App</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Menu Website</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Compare Item Prices</h1>
+    <div class="sidebar" id="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">×</a>
+    <a href="#home">Home</a>
+    <a href="program.html">Program</a> <!-- New link to Program Page -->
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
     
-    <div class="item-input">
-      <h2>Item 1</h2>
-      <label for="item1-amount">Amount:</label>
-      <input type="number" id="item1-amount" placeholder="Amount for item 1">
+</div>
 
-      <label for="item1-unit">Unit:</label>
-      <select id="item1-unit">
-        <option value="lb">lb</option>
-        <option value="oz">oz</option>
-        <option value="g">g</option>
-        <option value="kg">kg</option>
-      </select>
-      
-      <label for="item1-price">Price (in $):</label>
-      <input type="number" id="item1-price" placeholder="Price for item 1">
-    </div>
-    
-    <div class="item-input">
-      <h2>Item 2</h2>
-      <label for="item2-amount">Amount:</label>
-      <input type="number" id="item2-amount" placeholder="Amount for item 2">
+    <div class="main-content">
+        <header>
+            <span class="menu-icon" onclick="toggleSidebar()">☰ Menu</span>
+            <h1>Welcome to the Main Page</h1>
+        </header>
 
-      <label for="item2-unit">Unit:</label>
-      <select id="item2-unit">
-        <option value="lb">lb</option>
-        <option value="oz">oz</option>
-        <option value="g">g</option>
-        <option value="kg">kg</option>
-      </select>
-      
-      <label for="item2-price">Price (in $):</label>
-      <input type="number" id="item2-price" placeholder="Price for item 2">
+        <section id="home">
+            <h2>Home</h2>
+            <p>This is the home section.</p>
+        </section>
+
+	<a href="program.html"><h2>Program</h2>
+	    <p>Online programs</p></a> <!-- New link to Program Page -->
+
+        <section id="services">
+            <h2>Services</h2>
+            <p>Here are the services we offer.</p>
+        </section>
+
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Learn more about us here.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>Get in touch with us.</p>
+        </section>
     </div>
 
-    <button onclick="comparePrices()">Compare Prices</button>
-
-    <div id="result"></div>
-  </div>
-
-  <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
+

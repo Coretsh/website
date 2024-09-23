@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Press Recorder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Typing Recorder</h1>
+	<h4>To use click Start Recording button. Type in box what you want. tab will show up as  &lt;TAB&gt; but will input as code. When done
+click stop record. click analyze to get code. If spacing for code is needed enter in Indentation then click analyze.</H4><p>
+        <textarea id="typingBox" rows="10" cols="50" placeholder="Start typing..."></textarea>
+        <button id="recordButton">Start Recording</button>
+        <button id="analyzeButton">Analyze</button>
+        <br/>
+        <label for="tabIndent">Indentation (Number of Tab Spaces):</label>
+        <input type="number" id="tabIndent" value="0" min="0">
+        <div id="codeOutputContainer">
+            <h2>Arduino Code Output:</h2>
+            <pre id="codeOutput"></pre>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

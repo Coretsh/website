@@ -73,8 +73,16 @@ function generateArduinoCode(text, tabIndent) {
             code += `${tabSpaces}delay(${keydelay});\n`;
             code += `${tabSpaces}Keyboard.releaseAll();\n\n`;
             i += 5; // Skip the 5 characters corresponding to '<tab>'
-        } else {
-            // For regular characters, output `Keyboard.print()` as usual
+        } 
+        // Check for newlines to handle the Enter key
+        else if (text[i] === '\n') {
+            code += `${tabSpaces}Keyboard.write(KEY_RETURN);\n`;
+            code += `${tabSpaces}delay(${keydelay});\n`;
+            code += `${tabSpaces}Keyboard.releaseAll();\n\n`;
+            i++; // Move to the next character
+        } 
+        // For regular characters, output `Keyboard.print()` as usual
+        else {
             const char = text[i];
             code += `${tabSpaces}Keyboard.print('${char}');\n`;
             code += `${tabSpaces}delay(${keydelay});\n`;

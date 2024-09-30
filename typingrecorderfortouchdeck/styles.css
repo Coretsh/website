@@ -1,54 +1,72 @@
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
+    margin: 20px;
 }
 
-.container {
-    text-align: center;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-#typingBox {
+textarea {
     width: 100%;
-    max-width: 600px;
-    font-size: 16px;
+    height: 150px;
     padding: 10px;
-    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 16px;
     border: 1px solid #ccc;
 }
 
-button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
+.outputBox {
+    margin-top: 40px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    font-family: monospace;  /* Use a monospaced font for code output */
+    white-space: pre-wrap;    /* Preserve spaces, tabs, and newlines */
+    min-height: 200px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.code-container {
+    position: relative;
+    margin-top: 20px;
+}
+
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    padding: 10px 15px;
+    background-color: #007BFF;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
+.copy-button:hover {
+    background-color: #0056b3;
+}
+
+.controls {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
 button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
-#codeOutputContainer {
-    margin-top: 20px;
-}
-
-pre {
-    text-align: left;
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #f9f9f9;
-    white-space: pre-wrap;
-    overflow-x: auto;
+input[type="number"] {
+    padding: 5px;
+    font-size: 16px;
+    width: 60px;
+    margin-left: 10px;
 }

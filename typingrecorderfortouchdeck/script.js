@@ -59,6 +59,22 @@ document.getElementById('analyzeButton').addEventListener('click', () => {
     document.getElementById('codeOutput').textContent = arduinoCode;
 });
 
+// Copy code button to copy Arduino code to clipboard
+document.getElementById('copyButton').addEventListener('click', () => {
+    const codeOutput = document.getElementById('codeOutput').textContent;
+    if (codeOutput) {
+        navigator.clipboard.writeText(codeOutput)
+            .then(() => {
+                alert('Code copied to clipboard!');
+            })
+            .catch(err => {
+                alert('Failed to copy code. Error: ' + err);
+            });
+    } else {
+        alert('No code to copy!');
+    }
+});
+
 // Generate Arduino code from the typed text
 function generateArduinoCode(text, tabIndent) {
     let code = '';

@@ -41,7 +41,7 @@ document.getElementById('typingBox').addEventListener('keydown', (event) => {
 
         // Log the key press in the keyLog array
         keyLog.push(`Key Pressed: ${keyName}`);
-        updateLog();
+      
     }
 });
 

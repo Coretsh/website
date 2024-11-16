@@ -1,5 +1,6 @@
 let recording = false;
 const keyLog = [];
+const USER_ACTION_DELAY = 100; // Define the delay time in milliseconds (adjust as needed)
 
 // Handle the recording button toggle
 document.getElementById('recordButton').addEventListener('click', () => {
@@ -8,7 +9,8 @@ document.getElementById('recordButton').addEventListener('click', () => {
     if (recording) {
         document.getElementById('recordButton').textContent = 'Stop Recording';
         keyLog.length = 0;  // Clear the key log when recording starts
-        document.getElementById('keyLog').innerHTML = '';  // Clear displayed log
+        // Remove the key log display from the page (no longer update the key log output)
+        // document.getElementById('keyLog').innerHTML = '';  // This line is no longer necessary
     } else {
         document.getElementById('recordButton').textContent = 'Start Recording';
     }
@@ -39,17 +41,10 @@ document.getElementById('typingBox').addEventListener('keydown', (event) => {
             textarea.selectionStart = textarea.selectionEnd = start + tabText.length;
         }
 
-        // Log the key press in the keyLog array
+        // Log the key press in the keyLog array (we will keep this for code generation but not display it)
         keyLog.push(`Key Pressed: ${keyName}`);
-        updateLog();
     }
 });
-
-// Update the displayed key log
-function updateLog() {
-    const logContainer = document.getElementById('keyLog');
-    logContainer.innerHTML = keyLog.join('\n');
-}
 
 // Analyze button to generate Arduino code from the typed text
 document.getElementById('analyzeButton').addEventListener('click', () => {
@@ -78,31 +73,30 @@ document.getElementById('copyButton').addEventListener('click', () => {
 // Generate Arduino code from the typed text
 function generateArduinoCode(text, tabIndent) {
     let code = '';
-    const keydelay = 'keydelay';  // Placeholder for key delay
     const tabSpaces = '\t'.repeat(tabIndent); // Generate tab spaces based on user input
 
     let i = 0;
     while (i < text.length) {
         // Check if the substring starting at index `i` matches '<tab>'
         if (text.substr(i, 5) === '<tab>') {
-            code += `${tabSpaces}Keyboard.write(KEY_TAB);\n`;
-            code += `${tabSpaces}delay(${keydelay});\n`;
-            code += `${tabSpaces}Keyboard.releaseAll();\n\n`;
+            code += `${tabSpaces}bleKeyboard.write(KEY_TAB);\n`;
+            code += `${tabSpaces}delay(USER_ACTION_DELAY);\n`; // Replace with USER_ACTION_DELAY
+            code += `${tabSpaces}bleKeyboard.releaseAll();\n\n`;
             i += 5; // Skip the 5 characters corresponding to '<tab>'
         } 
         // Check for newlines to handle the Enter key
         else if (text[i] === '\n') {
-            code += `${tabSpaces}Keyboard.write(KEY_RETURN);\n`;
-            code += `${tabSpaces}delay(${keydelay});\n`;
-            code += `${tabSpaces}Keyboard.releaseAll();\n\n`;
+            code += `${tabSpaces}bleKeyboard.write(KEY_RETURN);\n`;
+            code += `${tabSpaces}delay(USER_ACTION_DELAY);\n`; // Replace with USER_ACTION_DELAY
+            code += `${tabSpaces}bleKeyboard.releaseAll();\n\n`;
             i++; // Move to the next character
         } 
-        // For regular characters, output `Keyboard.print()` as usual
+        // For regular characters, output `bleKeyboard.print()` as usual
         else {
             const char = text[i];
-            code += `${tabSpaces}Keyboard.print('${char}');\n`;
-            code += `${tabSpaces}delay(${keydelay});\n`;
-            code += `${tabSpaces}Keyboard.releaseAll();\n\n`;
+            code += `${tabSpaces}bleKeyboard.print('${char}');\n`;
+            code += `${tabSpaces}delay(USER_ACTION_DELAY);\n`; // Replace with USER_ACTION_DELAY
+            code += `${tabSpaces}bleKeyboard.releaseAll();\n\n`;
             i++; // Move to the next character
         }
     }

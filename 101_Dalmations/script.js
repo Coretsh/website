@@ -3,7 +3,7 @@ let currentPage = 1; // Start on page 1
 
 // Audio markers for each page
 const audioMarkers = {
-    1: { start: 0, end: 19 },
+    1: { start: 0, end: 16 },
     2: { start: 16, end: 39 },
 };
 

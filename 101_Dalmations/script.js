@@ -4,7 +4,7 @@ let currentPage = 1; // Start at page 1
 // Audio markers for each page (adjust to fit your audio timings)
 const audioMarkers = {
     1: { start: 0, end: 16 },  // Audio for Page 1
-    2: { start: 16, end: 40 }  // Audio for Page 2
+    2: { start: 16, end: 39 }  // Audio for Page 2
 };
 
 // Function to play audio for the current page
@@ -27,7 +27,6 @@ function nextPage() {
         // Hide Page 1 and show Page 2
         document.getElementById('page1').style.display = 'none';  // Hide page 1
         document.getElementById('page2').style.display = 'block'; // Show page 2
-        document.getElementById('prev-page').style.display = 'block'; // Show previous page button
 
         currentPage = 2; // Update the current page to 2
         playAudioForPage(currentPage); // Play the audio for page 2
@@ -40,7 +39,6 @@ function previousPage() {
         // Hide Page 2 and show Page 1
         document.getElementById('page2').style.display = 'none'; // Hide page 2
         document.getElementById('page1').style.display = 'block'; // Show page 1
-        document.getElementById('prev-page').style.display = 'none'; // Hide previous page button
 
         currentPage = 1; // Update the current page to 1
         playAudioForPage(currentPage); // Play the audio for page 1
@@ -65,4 +63,21 @@ window.onload = function () {
     if (audio.readyState >= 3) { // Check if audio is ready to play
         playAudioForPage(currentPage);
     }
+
+    // Initialize Hammer.js for swipe gestures
+    const bookContainer = document.getElementById('book-container');
+    const hammer = new Hammer(bookContainer);
+
+    // Detect swipe gestures
+    hammer.on('swipeleft', () => {
+        if (currentPage === 1) {
+            nextPage(); // Go to the next page on swipe left
+        }
+    });
+
+    hammer.on('swiperight', () => {
+        if (currentPage === 2) {
+            previousPage(); // Go to the previous page on swipe right
+        }
+    });
 };

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Book with Audio</title>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="book-container">
+        <div class="page" id="page1">
+            <img src="page1.jpg" alt="Page 1">
+        </div>
+        <div class="page" id="page2" style="display:none;">
+            <img src="page2.jpg" alt="Page 2">
+        </div>
+    </div>
+
+    <audio id="audio-track" src="book-audio.mp3"></audio>
+    <button id="next-page" onclick="nextPage()">Next Page</button>
+    <button id="replay-audio" onclick="replayAudio()">Replay Audio</button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -3,71 +3,75 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
+    background-color: #f9f9f9;
 }
 
 #book-container {
     position: relative;
     max-width: 600px;
     margin: 50px auto;
-    /* Center the container */
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 #book-content {
     position: relative;
-    max-width: 600px;
+    width: 100%;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.page {
+    display: none;
+    width: 100%;
+    transition: opacity 0.5s ease;
 }
 
 .page img {
     width: 100%;
     height: auto;
+    border-radius: 8px;
+}
+
+#nav-buttons {
+    text-align: center;
+    margin-top: 20px;
 }
 
 button {
     cursor: pointer;
     border: none;
     background: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgba(240, 240, 240, 0.8);
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-#prev-page,
-#next-page {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 80px;
-    background-color: #f0f0f0;
-    border: none;
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
-    opacity: 0.8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
+button:hover {
+    background-color: #ccc;
+    transform: scale(1.1);
 }
 
 #prev-page {
-    left: -70px;
-    /* Move further to the left outside the image */
+    margin-right: 10px;
 }
 
-#next-page {
-    right: -70px;
-    /* Move further to the right outside the image */
+button:focus {
+    outline: none;
 }
 
-#prev-page:hover,
-#next-page:hover {
-    background-color: #ccc;
-    opacity: 1;
-}
-
-button#replay-audio {
-    margin-top: 20px;
+/* Mobile responsiveness */
+@media screen and (max-width: 768px) {
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }

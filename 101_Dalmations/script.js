@@ -1,19 +1,18 @@
 const audio = document.getElementById('audio-track');
-let currentPage = 1; // Start at page 1
+let currentPage = 1; // Start on page 1
 
-// Audio markers for each page (adjust to fit your audio timings)
+// Audio markers for each page
 const audioMarkers = {
-    1: { start: 0, end: 16 },  // Audio for Page 1
-    2: { start: 16, end: 39 }  // Audio for Page 2
+    1: { start: 0, end: 10 },
+    2: { start: 10, end: 20 },
 };
 
-// Function to play audio for the current page
+// Play audio for the current page
 function playAudioForPage(pageNumber) {
     const { start, end } = audioMarkers[pageNumber];
-    audio.currentTime = start;  // Set the start time
-    audio.play();  // Play the audio
+    audio.currentTime = start; // Start audio at the correct marker
+    audio.play();
 
-    // Stop audio when the end of the segment is reached
     audio.ontimeupdate = () => {
         if (audio.currentTime >= end) {
             audio.pause();
@@ -21,39 +20,37 @@ function playAudioForPage(pageNumber) {
     };
 }
 
-// Function to switch to the next page
+// Go to the next page
 function nextPage() {
     if (currentPage === 1) {
-        // Hide Page 1 and show Page 2
-        document.getElementById('page1').style.display = 'none';  // Hide page 1
-        document.getElementById('page2').style.display = 'block'; // Show page 2
-
-        currentPage = 2; // Update the current page to 2
-        playAudioForPage(currentPage); // Play the audio for page 2
+        document.getElementById('page1').style.display = 'none';
+        document.getElementById('page2').style.display = 'block';
+        document.getElementById('prev-page').style.display = 'block'; // Show previous button
+        currentPage = 2;
+        playAudioForPage(currentPage); // Play audio for Page 2
     }
 }
 
-// Function to switch to the previous page
+// Go to the previous page
 function previousPage() {
     if (currentPage === 2) {
-        // Hide Page 2 and show Page 1
-        document.getElementById('page2').style.display = 'none'; // Hide page 2
-        document.getElementById('page1').style.display = 'block'; // Show page 1
-
-        currentPage = 1; // Update the current page to 1
-        playAudioForPage(currentPage); // Play the audio for page 1
+        document.getElementById('page2').style.display = 'none';
+        document.getElementById('page1').style.display = 'block';
+        document.getElementById('prev-page').style.display = 'none'; // Hide previous button
+        currentPage = 1;
+        playAudioForPage(currentPage); // Play audio for Page 1
     }
 }
 
-// Replay the audio of the current page
+// Replay the current page's audio
 function replayAudio() {
     playAudioForPage(currentPage);
 }
 
-// Start audio on first page click
+// Add audio playback on the first page when clicked
 document.getElementById('page1').addEventListener('click', function () {
     if (audio.paused) {
-        playAudioForPage(currentPage);  // Start audio when page 1 is clicked
+        playAudioForPage(currentPage);
     }
 });
 

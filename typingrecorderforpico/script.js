@@ -1,110 +1,64 @@
-let recording = false;
-const keyLog = [];
+let isRecording = false;
+let recordedKeys = [];
+const typingBox = document.getElementById("typingBox");
+const tabIndentInput = document.getElementById("tabIndent");
+const outputBox = document.getElementById("outputBox");
 
-// Handle the recording button toggle
-document.getElementById('recordButton').addEventListener('click', () => {
-    recording = !recording; // Toggle recording state
+document.getElementById("recordButton").addEventListener("click", () => {
+    isRecording = true;
+    recordedKeys = []; // Reset recorded keys
+    typingBox.value = ""; // Clear the text area
+});
 
-    if (recording) {
-        document.getElementById('recordButton').textContent = 'Stop Recording';
-        keyLog.length = 0;  // Clear the key log when recording starts
-        document.getElementById('keyLog').innerHTML = '';  // Clear displayed log
+document.getElementById("analyzeButton").addEventListener("click", () => {
+    let tabSpaces = " ".repeat(tabIndentInput.value * 4); // Convert tab spaces to actual spaces
+    let arduinoCode = recordedKeys
+        .map((key) => {
+            if (key === "<tab>") return `${tabSpaces}Keyboard.write(KEY_TAB);\n${tabSpaces}delay(keydelay);\n${tabSpaces}Keyboard.releaseAll();`;
+            if (key === "<enter>") return `${tabSpaces}Keyboard.write(KEY_RETURN);\n${tabSpaces}delay(keydelay);\n${tabSpaces}Keyboard.releaseAll();`;
+            if (key === "<left_arrow>") return `${tabSpaces}Keyboard.write(KEY_LEFT_ARROW);\n${tabSpaces}delay(keydelay);\n${tabSpaces}Keyboard.releaseAll();`;
+            if (key === "<up_arrow>") return `${tabSpaces}Keyboard.write(KEY_UP_ARROW);\n${tabSpaces}delay(keydelay);\n${tabSpaces}Keyboard.releaseAll();`;
+            if (key === "<down_arrow>") return `${tabSpaces}Keyboard.write(KEY_DOWN_ARROW);\n${tabSpaces}delay(keydelay);\n${tabSpaces}Keyboard.releaseAll();`;
+            if (key === "<right_arrow>") return `${tabSpaces}Keyboard.write(KEY_RIGHT_ARROW);\n${tabSpaces}delay(keydelay);\n${tabSpaces}Keyboard.releaseAll();`;
+            return `${tabSpaces}Keyboard.print('${key}');\n${tabSpaces}delay(keydelay);\n${tabSpaces}Keyboard.releaseAll();`;
+        })
+        .join("\n");
+    outputBox.textContent = arduinoCode; // Display the Arduino code
+});
+
+document.getElementById("copyButton").addEventListener("click", () => {
+    navigator.clipboard.writeText(outputBox.textContent).then(() => {
+        alert("Arduino code copied to clipboard!");
+    });
+});
+
+// Handle key presses
+typingBox.addEventListener("keydown", (event) => {
+    if (!isRecording) return;
+
+    event.preventDefault(); // Prevent default browser actions like Tab navigation
+    const key = event.key;
+
+    if (key === "Tab") {
+        recordedKeys.push("<tab>");
+        typingBox.value += "<tab>";
+    } else if (key === "Enter") {
+        recordedKeys.push("<enter>");
+        typingBox.value += "<enter>\n";
+    } else if (key === "ArrowLeft") {
+        recordedKeys.push("<left_arrow>");
+        typingBox.value += "<left_arrow>";
+    } else if (key === "ArrowUp") {
+        recordedKeys.push("<up_arrow>");
+        typingBox.value += "<up_arrow>";
+    } else if (key === "ArrowDown") {
+        recordedKeys.push("<down_arrow>");
+        typingBox.value += "<down_arrow>";
+    } else if (key === "ArrowRight") {
+        recordedKeys.push("<right_arrow>");
+        typingBox.value += "<right_arrow>";
     } else {
-        document.getElementById('recordButton').textContent = 'Start Recording';
+        recordedKeys.push(key);
+        typingBox.value += key;
     }
 });
-
-// Handle typing events in the text area
-document.getElementById('typingBox').addEventListener('keydown', (event) => {
-    if (recording) {
-        let keyName = event.key;
-
-        // Handle special keys like Tab and Space
-        if (keyName === ' ') {
-            keyName = 'Space';
-        } else if (keyName === 'Tab') {
-            event.preventDefault(); // Prevent tabbing out of the textarea
-            keyName = 'Tab';
-
-            // Insert "<tab>" text at the caret position inside the text area
-            const textarea = event.target;
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-
-            // Insert "<tab>" at the current caret position
-            const tabText = "<tab>";
-            textarea.value = textarea.value.substring(0, start) + tabText + textarea.value.substring(end);
-
-            // Move the caret after the inserted text
-            textarea.selectionStart = textarea.selectionEnd = start + tabText.length;
-        }
-
-        // Log the key press in the keyLog array
-        keyLog.push(`Key Pressed: ${keyName}`);
-      
-    }
-});
-
-// Update the displayed key log
-function updateLog() {
-    const logContainer = document.getElementById('keyLog');
-    logContainer.innerHTML = keyLog.join('\n');
-}
-
-// Analyze button to generate Arduino code from the typed text
-document.getElementById('analyzeButton').addEventListener('click', () => {
-    const typedText = document.getElementById('typingBox').value;
-    const tabIndent = parseInt(document.getElementById('tabIndent').value); // Get the indentation value
-    const arduinoCode = generateArduinoCode(typedText, tabIndent);
-    document.getElementById('codeOutput').textContent = arduinoCode;
-});
-
-// Copy code button to copy Arduino code to clipboard
-document.getElementById('copyButton').addEventListener('click', () => {
-    const codeOutput = document.getElementById('codeOutput').textContent;
-    if (codeOutput) {
-        navigator.clipboard.writeText(codeOutput)
-            .then(() => {
-                alert('Code copied to clipboard!');
-            })
-            .catch(err => {
-                alert('Failed to copy code. Error: ' + err);
-            });
-    } else {
-        alert('No code to copy!');
-    }
-});
-
-// Generate Arduino code from the typed text
-function generateArduinoCode(text, tabIndent) {
-    let code = '';
-    const keydelay = 'keydelay';  // Placeholder for key delay
-    const tabSpaces = '\t'.repeat(tabIndent); // Generate tab spaces based on user input
-
-    let i = 0;
-    while (i < text.length) {
-        // Check if the substring starting at index `i` matches '<tab>'
-        if (text.substr(i, 5) === '<tab>') {
-            code += `${tabSpaces}Keyboard.write(KEY_TAB);\n`;
-            code += `${tabSpaces}delay(${keydelay});\n`;
-            code += `${tabSpaces}Keyboard.releaseAll();\n\n`;
-            i += 5; // Skip the 5 characters corresponding to '<tab>'
-        } 
-        // Check for newlines to handle the Enter key
-        else if (text[i] === '\n') {
-            code += `${tabSpaces}Keyboard.write(KEY_RETURN);\n`;
-            code += `${tabSpaces}delay(${keydelay});\n`;
-            code += `${tabSpaces}Keyboard.releaseAll();\n\n`;
-            i++; // Move to the next character
-        } 
-        // For regular characters, output `Keyboard.print()` as usual
-        else {
-            const char = text[i];
-            code += `${tabSpaces}Keyboard.print('${char}');\n`;
-            code += `${tabSpaces}delay(${keydelay});\n`;
-            code += `${tabSpaces}Keyboard.releaseAll();\n\n`;
-            i++; // Move to the next character
-        }
-    }
-    return code;
-}

@@ -72,7 +72,7 @@ function previousPage() {
 
 // Navigate back to the bookshelf
 function goBackToBookshelf() {
-    window.location.href = 'file:///D:/Coretsh/Coretsh%20website/Books_on_tape/books_on_tape/bookshelf.html#'; // Redirect to bookshelf page
+    window.location.href = 'https://coretsh.github.io/website/books_on_tape/bookshelf.html#'; // Redirect to bookshelf page
 }
 
 // Call this function when the page loads

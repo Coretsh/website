@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle and Rectangle Intersection with Drag</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            position: relative;
+        }
+
+        .rectangle, .circle {
+            position: absolute;
+            touch-action: none; /* Disable default touch behavior */
+        }
+
+        .rectangle {
+            width: 150px;
+            height: 200px;
+            background: blue;
+            left: 50px;
+            top: 200px;
+        }
+
+        .circle {
+            width: 200px;
+            height: 200px;
+            background: red;
+            border: 10px solid purple;
+            border-radius: 50%;
+            right: 50px;
+            top: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="rectangle" id="rectangle"></div>
+    <div class="circle" id="circle"></div>
+
+    <script>
+        const rectangle = document.getElementById("rectangle");
+        const circle = document.getElementById("circle");
+
+        function enableDrag(element) {
+            let offsetX = 0;
+            let offsetY = 0;
+
+            element.addEventListener("mousedown", startDrag);
+            element.addEventListener("touchstart", startDrag, { passive: false });
+
+            function startDrag(e) {
+                e.preventDefault();
+                const startX = (e.touches ? e.touches[0].clientX : e.clientX) - element.getBoundingClientRect().left;
+                const startY = (e.touches ? e.touches[0].clientY : e.clientY) - element.getBoundingClientRect().top;
+
+                offsetX = startX;
+                offsetY = startY;
+
+                document.addEventListener("mousemove", dragElement);
+                document.addEventListener("mouseup", stopDrag);
+                document.addEventListener("touchmove", dragElement, { passive: false });
+                document.addEventListener("touchend", stopDrag);
+            }
+
+            function dragElement(e) {
+                e.preventDefault();
+                const x = (e.touches ? e.touches[0].clientX : e.clientX) - offsetX;
+                const y = (e.touches ? e.touches[0].clientY : e.clientY) - offsetY;
+
+                element.style.left = `${x}px`;
+                element.style.top = `${y}px`;
+
+                checkIntersection();
+            }
+
+            function stopDrag() {
+                document.removeEventListener("mousemove", dragElement);
+                document.removeEventListener("mouseup", stopDrag);
+                document.removeEventListener("touchmove", dragElement);
+                document.removeEventListener("touchend", stopDrag);
+            }
+        }
+
+        enableDrag(rectangle);
+        enableDrag(circle);
+
+        function checkIntersection() {
+            const rectRect = rectangle.getBoundingClientRect();
+            const circleRect = circle.getBoundingClientRect();
+
+            if (
+                rectRect.right >= circleRect.left &&
+                rectRect.left <= circleRect.right &&
+                rectRect.bottom >= circleRect.top &&
+                rectRect.top <= circleRect.bottom
+            ) {
+                // If intersecting, change both shapes to pink
+                rectangle.style.background = "pink";
+                circle.style.background = "pink";
+            } else {
+                // If not intersecting, reset to original colors
+                rectangle.style.background = "blue";
+                circle.style.background = "red";
+            }
+        }
+    </script>
+</body>
+</html>

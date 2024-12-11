@@ -33,7 +33,7 @@ function showBookCovers(section) {
         "X": ["nobookshere.jpg"],
         "Y": ["nobookshere.jpg"],
         "Z": ["nobookshere.jpg"],
-        "F0": ["kenzo_chinese_class_1"],
+        "F0": ["kenzo_chinese_class_1.jpg"],
         "K1": ["nobookshere.jpg"],
         "K2": ["nobookshere.jpg"]
     };

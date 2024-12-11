@@ -2,23 +2,6 @@ const audio = document.getElementById('audio-track');
 let currentPage = 1;
 const totalPages = 21;
 
-// Audio markers for each page
-const audioMarkers = {
-    
-};
-
-// Play audio for the current page
-function playAudioForPage(pageNumber) {
-    const { start, end } = audioMarkers[pageNumber];
-    audio.currentTime = start;
-    audio.play();
-
-    audio.ontimeupdate = () => {
-        if (audio.currentTime >= end) {
-            audio.pause();
-        }
-    };
-}
 
 // Show the page based on the current page number
 function showPage(pageNumber) {

@@ -53,7 +53,7 @@ function showBookCovers(section) {
             // Create a link that points to the book's HTML page
             const link = document.createElement("a");
             // Update the link to reflect the new folder structure
-            const bookName = cover.replace(".jpg", ".png", ""); // Extract book name without extension
+            const bookName = cover.replace(".jpg, .png", ""); // Extract book name without extension
             link.href = `books/${section}/${bookName}/${bookName}.html`; // New link structure
             link.target = "_blank"; // Open in a new tab
             link.appendChild(img);

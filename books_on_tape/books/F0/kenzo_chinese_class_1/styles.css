@@ -22,9 +22,9 @@ body {
 }
 
 .page img {
-    width: 100%;
+    width: 60%;
     /* Default width */
-    height: 100%;
+    height: 60%;
     /* Default height */
     object-fit: contain;
     /* Ensure the image scales to fit while maintaining aspect ratio */

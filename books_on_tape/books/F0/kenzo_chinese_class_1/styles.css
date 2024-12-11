@@ -9,9 +9,9 @@ body {
 
 #book-container {
     position: relative;
-    width: 100vw;
+    width: 60vw;
     /* Full width of the viewport */
-    height: 100vh;
+    height: 60vh;
     /* Full height of the viewport */
     margin: 0;
     display: flex;
@@ -22,9 +22,9 @@ body {
 }
 
 .page img {
-    width: 60%;
+    width: 100%;
     /* Default width */
-    height: 60%;
+    height: 100%;
     /* Default height */
     object-fit: contain;
     /* Ensure the image scales to fit while maintaining aspect ratio */

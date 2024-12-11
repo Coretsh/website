@@ -1,61 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
+// Function to show book covers for the selected section
+function showBookCovers(section) {
+    const overlay = document.getElementById("book-covers-overlay");
+    const grid = overlay.querySelector(".book-covers-grid");
+    grid.innerHTML = ""; // Clear any existing book covers
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Bookshelf</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+    // Example covers for the selected section
+    const covers = {
+        "1": ["101dalmations.jpg"],
+        "A": ["aliceinwonderland.png", "book2.jpg"],
+        "B": ["book3.jpg"],
+        "C": ["book4.jpg"],
+        "D": ["book5.jpg"],
+        "E": ["book6.jpg"],
+        "F": ["book7.jpg"],
+        "G": ["book8.jpg"],
+        "H": ["book9.jpg"],
+        "I": ["book10.jpg"],
+        "J": ["book11.jpg"],
+        "K": ["book12.jpg"],
+        "L": ["book13.jpg"],
+        "M": ["book14.jpg"],
+        "N": ["book15.jpg"],
+        "O": ["book16.jpg"],
+        "P": ["book17.jpg"],
+        "Q": ["book18.jpg"],
+        "R": ["book19.jpg"],
+        "S": ["book20.jpg"],
+        "T": ["book21.jpg"],
+        "U": ["book22.jpg"],
+        "V": ["book23.jpg"],
+        "W": ["book24.jpg"],
+        "X": ["book25.jpg"],
+        "Y": ["book26.jpg"],
+        "Z": ["book27.jpg"],
+        "F0": ["book28.jpg"],
+        "K1": ["book29.jpg"],
+        "K2": ["book30.jpg"]
+    };
 
-<body>
-    <!-- Bookshelf Image with clickable areas -->
-    <div id="bookshelf-container">
-        <img src="bookshelf.jpg" alt="Bookshelf" class="responsive-bookshelf" usemap="#bookshelf-map">
-        <map name="bookshelf-map">
-            <!-- Clickable areas -->
-            <area shape="rect" data-original-coords="110,189,313,389" href="#" onclick="showBookCovers('1')">
-            <area shape="rect" data-original-coords="327,188,530,389" href="#" onclick="showBookCovers('A')">
-            <area shape="rect" data-original-coords="546,190,746,391" href="#" onclick="showBookCovers('B')">
-            <area shape="rect" data-original-coords="761,189,963,390" href="#" onclick="showBookCovers('C')">
-            <area shape="rect" data-original-coords="979,190,1181,392" href="#" onclick="showBookCovers('D')">
-            <area shape="rect" data-original-coords="111,404,310,607" href="#" onclick="showBookCovers('E')">
-            <area shape="rect" data-original-coords="327,403,528,604" href="#" onclick="showBookCovers('F')">
-            <area shape="rect" data-original-coords="544,402,748,605" href="#" onclick="showBookCovers('G')">
-            <area shape="rect" data-original-coords="761,403,961,604" href="#" onclick="showBookCovers('H')">
-            <area shape="rect" data-original-coords="979,403,1179,606" href="#" onclick="showBookCovers('I')">
-            <area shape="rect" data-original-coords="110,615,311,820" href="#" onclick="showBookCovers('J')">
-            <area shape="rect" data-original-coords="326,615,529,816" href="#" onclick="showBookCovers('K')">
-            <area shape="rect" data-original-coords="544,616,745,817" href="#" onclick="showBookCovers('L')">
-            <area shape="rect" data-original-coords="762,616,963,820" href="#" onclick="showBookCovers('M')">
-            <area shape="rect" data-original-coords="978,616,1178,816" href="#" onclick="showBookCovers('N')">
-            <area shape="rect" data-original-coords="110,829,312,1031" href="#" onclick="showBookCovers('O')">
-            <area shape="rect" data-original-coords="328,829,527,1031" href="#" onclick="showBookCovers('P')">
-            <area shape="rect" data-original-coords="544,830,746,1032" href="#" onclick="showBookCovers('Q')">
-            <area shape="rect" data-original-coords="762,830,963,1031" href="#" onclick="showBookCovers('R')">
-            <area shape="rect" data-original-coords="979,830,1179,1031" href="#" onclick="showBookCovers('S')">
-            <area shape="rect" data-original-coords="110,1038,312,1241" href="#" onclick="showBookCovers('T')">
-            <area shape="rect" data-original-coords="327,1039,528,1240" href="#" onclick="showBookCovers('U')">
-            <area shape="rect" data-original-coords="545,1040,746,1242" href="#" onclick="showBookCovers('V')">
-            <area shape="rect" data-original-coords="762,1040,963,1243" href="#" onclick="showBookCovers('W')">
-            <area shape="rect" data-original-coords="978,1039,1180,1240" href="#" onclick="showBookCovers('X')">
-            <area shape="rect" data-original-coords="110,1254,311,1456" href="#" onclick="showBookCovers('Y')">
-            <area shape="rect" data-original-coords="327,1253,527,1454" href="#" onclick="showBookCovers('Z')">
-            <area shape="rect" data-original-coords="545,1254,743,1455" href="#" onclick="showBookCovers('F0')">
-            <area shape="rect" data-original-coords="762,1254,962,1456" href="#" onclick="showBookCovers('?1')">
-            <area shape="rect" data-original-coords="980,1252,1180,1454" href="#" onclick="showBookCovers('?2')">
-        </map>
-    </div>
+    // Load book covers for the selected section
+    if (covers[section]) {
+        covers[section].forEach((cover) => {
+            // Create a container for each book cover
+            const coverContainer = document.createElement("div");
+            coverContainer.classList.add("cover-container");
 
-    <!-- Book Covers Overlay -->
-    <div id="book-covers-overlay">
-        <div class="book-covers-grid">
-            <!-- Dynamic book covers will load here -->
-        </div>
-        <button id="back-button" onclick="returnToBookshelf()">Back to Bookshelf</button>
-    </div>
+            // Create an image element for the cover
+            const img = document.createElement("img");
+            img.src = `covers/${section}/${cover}`;
+            img.alt = "Book Cover";
 
-    <script src="script.js"></script>
-</body>
+            // Create a link that points to the book's HTML page
+            const link = document.createElement("a");
+            // Update the link to reflect the new folder structure
+            const bookName = cover.replace(".jpg", ".png", ""); // Extract book name without extension
+            link.href = `books/${section}/${bookName}/${bookName}.html`; // New link structure
+            link.target = "_blank"; // Open in a new tab
+            link.appendChild(img);
 
-</html>
+            // Append the link to the cover container
+            coverContainer.appendChild(link);
+
+            // Append the cover container to the grid
+            grid.appendChild(coverContainer);
+        });
+    }
+
+    // Show the overlay
+    overlay.style.display = "flex";
+}
+
+// Function to return to the bookshelf view
+function returnToBookshelf() {
+    document.getElementById("book-covers-overlay").style.display = "none";
+}
+
+// Function to scale the map for responsiveness
+function scaleMap() {
+    const img = document.querySelector(".responsive-bookshelf");
+    const map = document.querySelector("map");
+    const originalWidth = 1180; // Original width of the bookshelf image
+    const scale = img.offsetWidth / originalWidth;
+
+    const areas = map.querySelectorAll("area");
+    areas.forEach((area) => {
+        const originalCoords = area.dataset.originalCoords.split(",").map(Number);
+        const scaledCoords = originalCoords.map((coord) => Math.round(coord * scale));
+        area.coords = scaledCoords.join(",");
+    });
+}
+
+window.addEventListener("resize", scaleMap);
+window.addEventListener("load", scaleMap);

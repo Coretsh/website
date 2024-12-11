@@ -9,11 +9,11 @@ body {
 
 #book-container {
     position: relative;
-    width: 100vw;
+    width: 35%;
     /* Full width of the viewport */
-    height: 100vh;
+    height: 100vm;
     /* Full height of the viewport */
-    margin: 0;
+    margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,9 +22,9 @@ body {
 }
 
 .page img {
-    width: 70%;
+    width: 100%;
     /* Default width */
-    height: 70%;
+    height: 100%;
     /* Default height */
     object-fit: contain;
     /* Ensure the image scales to fit while maintaining aspect ratio */

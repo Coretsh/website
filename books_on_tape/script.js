@@ -7,7 +7,7 @@ function showBookCovers(section) {
     // Example covers for the selected section
     const covers = {
         "1": ["101dalmations.png"],
-        "A": ["aliceinwonderland.png", "book2.jpg"],
+        "A": ["aliceinwonderland.png"],
         "B": ["book3.jpg"],
         "C": ["book4.png"],
         "D": ["book5.jpg"],

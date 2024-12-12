@@ -6,36 +6,36 @@ function showBookCovers(section) {
 
     // Example covers for the selected section
     const covers = {
-        "1": ["101dalmations.jpg"],
+        "1": ["101dalmations.png"],
         "A": ["aliceinwonderland.png", "book2.jpg"],
         "B": ["book3.jpg"],
-        "C": ["book4.jpg"],
+        "C": ["book4.png"],
         "D": ["book5.jpg"],
-        "E": ["book6.jpg"],
+        "E": ["book6.png"],
         "F": ["book7.jpg"],
-        "G": ["book8.jpg"],
+        "G": ["book8.png"],
         "H": ["book9.jpg"],
-        "I": ["book10.jpg"],
+        "I": ["book10.png"],
         "J": ["book11.jpg"],
-        "K": ["book12.jpg"],
+        "K": ["book12.png"],
         "L": ["book13.jpg"],
-        "M": ["book14.jpg"],
+        "M": ["book14.png"],
         "N": ["book15.jpg"],
-        "O": ["book16.jpg"],
+        "O": ["book16.png"],
         "P": ["book17.jpg"],
-        "Q": ["book18.jpg"],
+        "Q": ["book18.png"],
         "R": ["book19.jpg"],
-        "S": ["book20.jpg"],
+        "S": ["book20.png"],
         "T": ["book21.jpg"],
-        "U": ["book22.jpg"],
+        "U": ["book22.png"],
         "V": ["book23.jpg"],
-        "W": ["book24.jpg"],
+        "W": ["book24.png"],
         "X": ["book25.jpg"],
-        "Y": ["book26.jpg"],
+        "Y": ["book26.png"],
         "Z": ["book27.jpg"],
-        "F0": ["book28.jpg"],
+        "F0": ["book28.png"],
         "K1": ["book29.jpg"],
-        "K2": ["book30.jpg"]
+        "K2": ["book30.png"]
     };
 
     // Load book covers for the selected section
@@ -52,8 +52,7 @@ function showBookCovers(section) {
 
             // Create a link that points to the book's HTML page
             const link = document.createElement("a");
-            // Update the link to reflect the new folder structure
-            const bookName = cover.replace(".jpg", ""); // Extract book name without extension
+            const bookName = cover.substring(0, cover.lastIndexOf(".")); // Extract book name without extension
             link.href = `books/${section}/${bookName}/${bookName}.html`; // New link structure
             link.target = "_blank"; // Open in a new tab
             link.appendChild(img);
